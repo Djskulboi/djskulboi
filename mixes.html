@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DJ Skulboi Mixes</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0f0f0f;
+color:white;
+}
+
+/* HEADER */
+
+header{
+background:black;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+color:#ffcc00;
+}
+
+nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+}
+
+/* HERO */
+
+.hero{
+background:#111;
+padding:40px;
+text-align:center;
+border-bottom:1px solid #222;
+}
+
+.hero h1{
+color:#ffcc00;
+}
+
+.search{
+margin-top:20px;
+}
+
+.search input{
+padding:12px;
+width:90%;
+max-width:400px;
+border-radius:5px;
+border:none;
+}
+
+/* CATEGORY */
+
+.categories{
+text-align:center;
+padding:20px;
+}
+
+.categories button{
+background:#ffcc00;
+border:none;
+padding:10px 15px;
+margin:5px;
+border-radius:5px;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* MIX GRID */
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+}
+
+.mix-card{
+background:#161616;
+padding:15px;
+border-radius:8px;
+transition:0.3s;
+}
+
+.mix-card:hover{
+transform:translateY(-5px);
+}
+
+.mix-title{
+font-size:18px;
+color:#ffcc00;
+margin-bottom:10px;
+}
+
+iframe{
+width:100%;
+height:200px;
+border:none;
+border-radius:6px;
+}
+
+/* BUTTONS */
+
+.buttons{
+margin-top:10px;
+display:flex;
+gap:10px;
+}
+
+.btn{
+flex:1;
+text-align:center;
+padding:10px;
+border-radius:5px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.play{
+background:#ffcc00;
+color:black;
+}
+
+.download{
+background:#333;
+color:white;
+}
+
+/* LOAD MORE */
+
+.load{
+text-align:center;
+padding:30px;
+}
+
+.load button{
+padding:12px 20px;
+background:#ffcc00;
+border:none;
+border-radius:6px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+background:black;
+text-align:center;
+padding:20px;
+color:#aaa;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">DJ SKULBOI</div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="mixes.html">Mixes</a>
+<a href="#">Contact</a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Latest DJ Mixes</h1>
+
+<p>Stream and download the hottest DJ mixes</p>
+
+<div class="search">
+<input type="text" id="search" placeholder="Search mixes..." onkeyup="searchMix()">
+</div>
+
+</section>
+
+<div class="categories">
+
+<button onclick="filterMix('all')">All</button>
+<button onclick="filterMix('afro')">Afrobeats</button>
+<button onclick="filterMix('street')">Street</button>
+<button onclick="filterMix('party')">Party</button>
+
+</div>
+
+<div class="container" id="mixContainer"></div>
+
+<div class="load">
+<button onclick="loadMore()">Load More</button>
+</div>
+
+<footer>
+
+© 2026 DJ Skulboi | All Rights Reserved
+
+</footer>
+
+<script>
+
+const mixes=[
+
+{
+title:"Street Anthem",
+category:"street",
+embed:"https://audiomack.com/embed/deajay-skul_boi/song/street-anthem",
+link:"https://audiomack.com/deajay-skul_boi/song/street-anthem"
+},
+
+{
+title:"Afro Vibes Mix",
+category:"afro",
+embed:"https://audiomack.com/embed/deajay-skul_boi/song/afro-mix",
+link:"https://audiomack.com/deajay-skul_boi/song/afro-mix"
+},
+
+{
+title:"Ghost Mode Mix",
+category:"party",
+embed:"https://audiomack.com/embed/deajay-skul_boi/song/ghost-mode-dj-kulboi2023-8-18-07-34-59-am",
+link:"https://audiomack.com/deajay-skul_boi/song/ghost-mode-dj-kulboi2023-8-18-07-34-59-am"
+},
+
+{
+title:"Best of Bella Shmurda",
+category:"afro",
+embed:"https://audiomack.com/embed/deajay-skul_boi/song/16840187",
+link:"https://audiomack.com/deajay-skul_boi/song/16840187"
+}
+
+];
+
+let visible=4;
+let currentList=mixes;
+
+const container=document.getElementById("mixContainer");
+
+function showMix(list){
+
+container.innerHTML="";
+
+list.slice(0,visible).forEach(mix=>{
+
+const div=document.createElement("div");
+
+div.className="mix-card";
+
+div.innerHTML=`
+
+<div class="mix-title">${mix.title}</div>
+
+<iframe src="${mix.embed}"></iframe>
+
+<div class="buttons">
+
+<a class="btn play" href="${mix.link}" target="_blank">
+Play
+</a>
+
+<a class="btn download" href="${mix.link}" target="_blank">
+Download
+</a>
+
+</div>
+
+`;
+
+container.appendChild(div);
+
+});
+
+}
+
+function loadMore(){
+
+visible+=4;
+
+showMix(currentList);
+
+}
+
+function searchMix(){
+
+let input=document.getElementById("search").value.toLowerCase();
+
+currentList=mixes.filter(m=>m.title.toLowerCase().includes(input));
+
+visible=4;
+
+showMix(currentList);
+
+}
+
+function filterMix(cat){
+
+if(cat==="all"){
+
+currentList=mixes;
+
+}
+
+else{
+
+currentList=mixes.filter(m=>m.category===cat);
+
+}
+
+visible=4;
+
+showMix(currentList);
+
+}
+
+showMix(mixes);
+
+</script>
+
+</body>
+
+</html>
