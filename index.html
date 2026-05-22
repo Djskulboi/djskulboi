@@ -1,12 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>DJ $Kulboi</title>
-    <link rel="stylesheet" href="style.css">
+  <title>Skulboi Music</title>
+
+  <style>
+
+    body{
+      background:#111;
+      color:white;
+      font-family:Arial;
+      padding:20px;
+    }
+
+    input,button{
+      width:100%;
+      padding:12px;
+      margin-top:10px;
+      border:none;
+      border-radius:10px;
+    }
+
+    button{
+      background:#00ff99;
+      font-weight:bold;
+      color:black;
+    }
+
+    .box{
+      background:#1c1c1c;
+      padding:20px;
+      border-radius:15px;
+      margin-top:20px;
+    }
+
+  </style>
+
 </head>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<div style="padding:20px;">
+
+<body>
+
+<h1>Skulboi Music</h1>
+
+<div class="box">
 
 <h2>Create Account</h2>
 
@@ -16,22 +51,11 @@
 
 <button onclick="signup()">Create Account</button>
 
-<br><br>
+</div>
+
+<div class="box">
 
 <h2>Upload Music</h2>
-
-<input type="file" id="musicFile">
-
-<button onclick="uploadMusic()">Upload Song</button>
-
-</div>
-    <div>
-
-<input type="email" id="email">
-
-<input type="password" id="password">
-
-<button onclick="signup()">Create Account</button>
 
 <input type="file" id="musicFile">
 
@@ -43,24 +67,16 @@
 
 <script>
 
-const supabaseUrl = 'https://otqyxnfhmtkmsyafpbwu.supabase.co'
+const supabaseUrl =
+'https://otqyxnfhmtkmsyafpbwu.supabase.co'
 
-const supabaseKey = 'otqyxnfhmtkmsyafpbwu'
+const supabaseKey =
+'otqyxnfhmtkmsyafpbwu'
 
 const client =
-supabase.createClient(supabaseUrl, supabaseKey)
-
-</script>
-<script>
-
-
-const supabaseUrl = https://otqyxnfhmtkmsyafpbwu.supabase.co
-
-const supabaseKey = otqyxnfhmtkmsyafpbwu
-
-const client = supabase.createClient(
-  supabaseUrl,
-  supabaseKey
+supabase.createClient(
+supabaseUrl,
+supabaseKey
 )
 
 async function signup(){
@@ -72,8 +88,11 @@ async function signup(){
   document.getElementById('password').value
 
   if(!email || !password){
+
     alert("Enter email and password")
+
     return
+
   }
 
   const { data, error } =
@@ -102,8 +121,11 @@ async function uploadMusic(){
   document.getElementById('musicFile').files[0]
 
   if(!file){
+
     alert("Select a music file first")
+
     return
+
   }
 
   const fileName =
@@ -129,6 +151,9 @@ async function uploadMusic(){
 }
 
 </script>
+
+</body>
+</html>
 
 }
 
