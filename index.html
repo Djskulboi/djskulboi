@@ -25,65 +25,110 @@
 <button onclick="uploadMusic()">Upload Song</button>
 
 </div>
+    <div>
+
+<input type="email" id="email">
+
+<input type="password" id="password">
+
+<button onclick="signup()">Create Account</button>
+
+<input type="file" id="musicFile">
+
+<button onclick="uploadMusic()">Upload Song</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+
+const supabaseUrl = 'https://otqyxnfhmtkmsyafpbwu.supabase.co'
+
+const supabaseKey = 'otqyxnfhmtkmsyafpbwu'
+
+const client =
+supabase.createClient(supabaseUrl, supabaseKey)
+
+</script>
+<script>
+
 
 const supabaseUrl = https://otqyxnfhmtkmsyafpbwu.supabase.co
 
 const supabaseKey = otqyxnfhmtkmsyafpbwu
 
-const supabase =
-supabase.createClient(supabaseUrl, supabaseKey)
+const client = supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+)
 
 async function signup(){
 
-const email =
-document.getElementById('email').value
+  const email =
+  document.getElementById('email').value
 
-const password =
-document.getElementById('password').value
+  const password =
+  document.getElementById('password').value
 
-const { data, error } =
-await supabase.auth.signUp({
+  if(!email || !password){
+    alert("Enter email and password")
+    return
+  }
 
-email: email,
-password: password
+  const { data, error } =
+  await client.auth.signUp({
 
-})
+    email: email,
+    password: password
 
-if(error){
+  })
 
-alert(error.message)
+  if(error){
 
-}else{
+    alert(error.message)
 
-alert("Verification email sent!")
+  }else{
 
-}
+    alert("Verification email sent!")
+
+  }
 
 }
 
 async function uploadMusic(){
 
-const file =
-document.getElementById('musicFile').files[0]
+  const file =
+  document.getElementById('musicFile').files[0]
 
-const fileName =
-Date.now() + "-" + file.name
+  if(!file){
+    alert("Select a music file first")
+    return
+  }
 
-const { data, error } =
-await supabase.storage
+  const fileName =
+  Date.now() + "-" + file.name
 
-.from('music')
+  const { data, error } =
+  await client.storage
 
-.upload(fileName, file)
+  .from('music')
 
-if(error){
+  .upload(fileName, file)
 
-alert(error.message)
+  if(error){
 
-}else{
+    alert(error.message)
 
-alert("Music uploaded successfully!")
+  }else{
+
+    alert("Music uploaded successfully!")
+
+  }
+
+}
+
+</script>
 
 }
 
