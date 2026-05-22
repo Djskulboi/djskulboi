@@ -5,6 +5,91 @@
     <title>DJ $Kulboi</title>
     <link rel="stylesheet" href="style.css">
 </head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<div style="padding:20px;">
+
+<h2>Create Account</h2>
+
+<input type="email" id="email" placeholder="Email">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="signup()">Create Account</button>
+
+<br><br>
+
+<h2>Upload Music</h2>
+
+<input type="file" id="musicFile">
+
+<button onclick="uploadMusic()">Upload Song</button>
+
+</div>
+<script>
+
+const supabaseUrl = https://otqyxnfhmtkmsyafpbwu.supabase.co
+
+const supabaseKey = otqyxnfhmtkmsyafpbwu
+
+const supabase =
+supabase.createClient(supabaseUrl, supabaseKey)
+
+async function signup(){
+
+const email =
+document.getElementById('email').value
+
+const password =
+document.getElementById('password').value
+
+const { data, error } =
+await supabase.auth.signUp({
+
+email: email,
+password: password
+
+})
+
+if(error){
+
+alert(error.message)
+
+}else{
+
+alert("Verification email sent!")
+
+}
+
+}
+
+async function uploadMusic(){
+
+const file =
+document.getElementById('musicFile').files[0]
+
+const fileName =
+Date.now() + "-" + file.name
+
+const { data, error } =
+await supabase.storage
+
+.from('music')
+
+.upload(fileName, file)
+
+if(error){
+
+alert(error.message)
+
+}else{
+
+alert("Music uploaded successfully!")
+
+}
+
+}
+
+</script>
 <body>
 <header style="background:black;padding:15px;text-align:center;">
 
